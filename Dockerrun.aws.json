@@ -1,0 +1,38 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "client",
+      "image": "samot/multi-client",
+      "hostname": "client",
+      "essential": false
+    },
+
+    {
+      "name": "server",
+      "image": "samot/multi-server",
+      "hostname": "api",
+      "essential": false
+    },
+
+    {
+      "name": "worker",
+      "image": "samot/multi-worker",
+      "hostname": "worker",
+      "essential": false
+    },
+    {
+      "name": "nginx",
+      "image": "samot/multi-nginx",
+      "hostname": "nginx",
+      "essential": true,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "links": ["client", "server"]
+    }
+  ]
+}
